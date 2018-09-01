@@ -1,0 +1,38 @@
+version: '{build}'
+
+image: Visual Studio 2017
+
+environment:
+  DOCKER_USER: idubnori
+  DOCKER_PASS:
+    secure: HASfuLeqW86zydzpb7/5Zg==
+  DOCKER_IMAGE_NAME: idubnori/rabbitmq-windows:3.7.5-nanoserver
+
+init:
+#  - ps: gcim Win32_Processor | % { "$($_.NumberOfCores) cores" }
+#  - ps: gcim Win32_OperatingSystem | % { "$([int]($_.TotalVisibleMemorySize/1mb)) Gb" }
+  - ps: docker version
+  - ps: docker info
+  - ps: docker images
+  - ps: |
+      cinst curl -y --no-progress
+      sal curl (Join-Path $env:ChocolateyInstall "bin\curl.exe") -O AllScope
+
+build_script:
+  - ps: |
+      cd $env:APPVEYOR_BUILD_FOLDER
+      cd .\nanoserver\latest
+      docker build -t erlang-otp-nano:20.3 .\Dockerfile.20.3
+      docker images
+
+test_script:
+  - ps: |
+       docker run -it $env:DOCKER_IMAGE_NAME
+#      $cid = docker run -d $env:DOCKER_IMAGE_NAME
+#      $hostip = docker inspect -f "{{ .NetworkSettings.Networks.nat.IPAddress }}" $cid
+#      Start-Sleep -s 45
+#      curl "http://${hostip}:15672" -s -f --connect-timeout 30
+
+deploy_script:
+#  - docker login -u %DOCKER_USER% -p %DOCKER_PASS%
+#  - docker push %DOCKER_IMAGE_NAME%
