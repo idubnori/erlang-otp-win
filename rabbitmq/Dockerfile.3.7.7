@@ -13,7 +13,7 @@ RUN [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tl
     Remove-Item -Force rabbitmq.zip; \
     Rename-Item c:\rabbitmq_server-$env:RMQ_VERSION c:\rabbitmq
 
-FROM erlang-otp-nano:20.3
+FROM erlang-otp-nano
 
 COPY --from=root c:\\rabbitmq c:\\rabbitmq
 

@@ -22,7 +22,7 @@ build_script:
   - ps: |
       cd $env:APPVEYOR_BUILD_FOLDER
       cd .\nanoserver\latest
-      docker build -t erlang-otp-nano:20.3 -f .\Dockerfile.20.3 .
+      docker build -t erlang-otp-nano .
       docker images
   - ps: |
       cd $env:APPVEYOR_BUILD_FOLDER
@@ -32,11 +32,11 @@ build_script:
 
 test_script:
   - ps: |
-       docker run -it $env:DOCKER_IMAGE_NAME
-#      $cid = docker run -d $env:DOCKER_IMAGE_NAME
-#      $hostip = docker inspect -f "{{ .NetworkSettings.Networks.nat.IPAddress }}" $cid
-#      Start-Sleep -s 45
-#      curl "http://${hostip}:15672" -s -f --connect-timeout 30
+      $cid = docker run -d $env:DOCKER_IMAGE_NAME
+      $hostip = docker inspect -f "{{ .NetworkSettings.Networks.nat.IPAddress }}" $cid
+      Start-Sleep -s 30
+      curl "http://${hostip}:15672" -s -f --connect-timeout 30
+#      docker run -it $env:DOCKER_IMAGE_NAME
 
 deploy_script:
 #  - docker login -u %DOCKER_USER% -p %DOCKER_PASS%

@@ -1,7 +1,7 @@
 FROM microsoft/windowsservercore as root
 LABEL maintainer="muller.john@gmail.com"
 
-ENV erlang_download_url="http://erlang.org/download/otp_win64_20.3.exe" \
+ENV erlang_download_url="http://erlang.org/download/otp_win64_21.0.1.exe" \
     ERLANG_HOME=c:\\erlang
 
 # setup powershell options for RUN commands
