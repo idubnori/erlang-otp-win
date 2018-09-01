@@ -32,11 +32,11 @@ build_script:
 
 test_script:
   - ps: |
-      $cid = docker run -d $env:DOCKER_IMAGE_NAME
-      $hostip = docker inspect -f "{{ .NetworkSettings.Networks.nat.IPAddress }}" $cid
-      Start-Sleep -s 30
-      curl "http://${hostip}:15672" -s -f --connect-timeout 30
-#      docker run -it $env:DOCKER_IMAGE_NAME
+      docker run -it $env:DOCKER_IMAGE_NAME
+#      $cid = docker run -d $env:DOCKER_IMAGE_NAME
+#      $hostip = docker inspect -f "{{ .NetworkSettings.Networks.nat.IPAddress }}" $cid
+#      Start-Sleep -s 45
+#      curl "http://${hostip}:15672" -s -f --connect-timeout 30
 
 deploy_script:
 #  - docker login -u %DOCKER_USER% -p %DOCKER_PASS%
