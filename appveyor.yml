@@ -6,7 +6,7 @@ environment:
   DOCKER_USER: idubnori
   DOCKER_PASS:
     secure: HASfuLeqW86zydzpb7/5Zg==
-  DOCKER_IMAGE_NAME: idubnori/rabbitmq-windows:3.7.5-nanoserver
+  DOCKER_IMAGE_NAME: idubnori/rabbitmq-windows:3.7.7-nanoserver
 
 init:
 #  - ps: gcim Win32_Processor | % { "$($_.NumberOfCores) cores" }
@@ -23,6 +23,11 @@ build_script:
       cd $env:APPVEYOR_BUILD_FOLDER
       cd .\nanoserver\latest
       docker build -t erlang-otp-nano:20.3 -f .\Dockerfile.20.3 .
+      docker images
+  - ps: |
+      cd $env:APPVEYOR_BUILD_FOLDER
+      cd .\rabbitmq
+      docker build -t $env:DOCKER_IMAGE_NAME -f .\Dockerfile.3.7.7 .
       docker images
 
 test_script:
