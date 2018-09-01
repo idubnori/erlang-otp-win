@@ -22,7 +22,7 @@ build_script:
   - ps: |
       cd $env:APPVEYOR_BUILD_FOLDER
       cd .\nanoserver\latest
-      docker build -t erlang-otp-nano:20.3 .\Dockerfile.20.3
+      docker build -t erlang-otp-nano:20.3 -f .\Dockerfile.20.3 .
       docker images
 
 test_script:
