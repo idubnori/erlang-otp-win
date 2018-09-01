@@ -1,5 +1,4 @@
-FROM microsoft/windowsservercore:1709 as root
-LABEL maintainer="muller.john@gmail.com"
+FROM microsoft/windowsservercore as root
 
 ENV RMQ_VERSION="3.7.7" \
     rabbit_download_url="https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.7.7/rabbitmq-server-windows-3.7.7.zip"
